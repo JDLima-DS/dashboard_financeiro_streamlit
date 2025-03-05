@@ -9,6 +9,7 @@ def load_data(empresa):
     stock_quotes = stock_quotes[["Close"]]
     return stock_quotes
 
+acoes = ["ITUB4.SA", "PETR4.SA", "MGLU3.SA", "VALE3.SA", "ABEV3.SA", "GGBR4.SA"]
 loaded_data = load_data("ITUB4.SA") # Necessita-se do .SA, devido ser uma ação brasileira(São Paulo)
 
 st.write("""
