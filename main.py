@@ -25,6 +25,9 @@ O gráfico abaixo representa a evolução do preço das ações de mercado ao lo
 stock_list = st.multiselect("Escolha uma ação!", loaded_data.columns)
 if stock_list:
     loaded_data = loaded_data[stock_list]
+    if len(stock_list) == 1:
+        unique_stock = stock_list[0]
+        loaded_data = loaded_data.rename(columns = {unique_stock: "Close"})
 
 st.line_chart(loaded_data)
 
