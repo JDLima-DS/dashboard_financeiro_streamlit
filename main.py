@@ -3,6 +3,7 @@
 import streamlit as st
 import pandas as pd
 import yfinance as yf
+from datetime import timedelta
 
 #Função de carregamento de dados(Extract -> Yahoo Finance)
 @st.cache_data
@@ -37,6 +38,16 @@ if stock_list:
         loaded_data = loaded_data.rename(columns = {unique_stock: "Close"})
 
 #Filtro de Datas
+initial_date = loaded_data.index.min().to_pydatetime()
+final_date = loaded_data.index.max().to_pydatetime()
+
+date_interval = st.sidebar.slider("Selecione o período", 
+                  min_value=initial_date, 
+                  max_value=final_date, 
+                  value=(initial_date, final_date),
+                  step=timedelta(days=15))
+
+loaded_data = loaded_data.loc[date_interval[0]:date_interval[1]]
 
 #Gráfico de linha das views entra aqui
 st.line_chart(loaded_data)
